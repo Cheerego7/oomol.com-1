@@ -1,11 +1,14 @@
 import styles from "./styles.module.scss";
 
+import type { CatalogStats } from "./catalogStats";
 import type { DocusaurusContext } from "@docusaurus/types";
 
 import { translate } from "@docusaurus/Translate";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { usePluginData } from "@docusaurus/useGlobalData";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import { fetchCatalogStats } from "./catalogStats";
 
 const toolIcons = [
   { icon: "i-simple-icons-github", labelKey: "COMMON.brand.github" },
@@ -21,9 +24,7 @@ const toolIcons = [
 const DEFAULT_CATALOG_STATS = {
   providerCount: 1000,
   actionCount: 40000,
-};
-
-type CatalogStats = typeof DEFAULT_CATALOG_STATS;
+} satisfies CatalogStats;
 
 type ToolStripCopy = {
   title: string;
@@ -48,10 +49,28 @@ export default function HomepageToolStrip() {
     i18n: { currentLocale: string };
   };
   const pluginData = usePluginData("catalog-stats") as CatalogStats | undefined;
+  const [catalogStats, setCatalogStats] = useState<CatalogStats>(
+    () => pluginData ?? DEFAULT_CATALOG_STATS
+  );
   const numberLocale = i18n.currentLocale === "zh-CN" ? "zh-CN" : "en-US";
-  const catalogStats = pluginData ?? DEFAULT_CATALOG_STATS;
   const providerCount = formatCount(catalogStats.providerCount, numberLocale);
   const actionCount = formatCount(catalogStats.actionCount, numberLocale);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    let isMounted = true;
+
+    fetchCatalogStats({ signal: controller.signal }).then(stats => {
+      if (isMounted && stats) {
+        setCatalogStats(stats);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
 
   const copy: ToolStripCopy = {
     title: translate({

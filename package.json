@@ -14,6 +14,7 @@
     "clear": "docusaurus clear",
     "build-unocss": "unocss 'src/**/*.tsx' --out-file=src/styles/uno.css",
     "serve": "docusaurus serve",
+    "test:catalog-stats": "node tests/catalog-stats.mjs",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
