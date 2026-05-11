@@ -1,0 +1,86 @@
+---
+sidebar_position: 2
+sidebar_label: Connect monday.com
+slug: /oo-cli/connect-monday
+pagination_prev: cloud-services/cli
+pagination_next: cloud-services/connect-feishu-app-bot
+---
+
+# Connect monday.com to OOMOL
+
+This guide shows how to connect your monday.com account to OOMOL with OAuth,
+then use that connection from an agent or `oo-cli` to create monday.com content.
+
+## Prerequisites
+
+- You can sign in to [OOMOL Console](https://console.oomol.com/app-connections?provider=monday).
+- You can sign in to the monday.com workspace that you want to connect.
+- Your monday.com account has permission to authorize apps for that workspace.
+
+## Video walkthrough
+
+<video
+  controls
+  preload="metadata"
+  style={{ width: "100%", maxWidth: "880px", display: "block", margin: "16px auto 40px" }}
+>
+  <source src="https://static.oomol.com/assets/monday.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+## Connect monday.com in OOMOL Console
+
+Open [OOMOL Console](https://console.oomol.com/app-connections?provider=monday),
+then go to **App Connections**. Search for **Monday**.
+
+In the Monday connection card, click **Set Up**. OOMOL opens the connection
+panel and shows the supported methods. Choose **OAuth**, then click
+**Connect**.
+
+## Authorize OOMOL in monday.com
+
+OOMOL opens a monday.com authorization window. Sign in to the correct
+monday.com workspace if the browser asks you to sign in.
+
+Review the permissions shown on the authorization page, then click
+**Authorize**. Monday redirects back to OOMOL after the authorization finishes.
+
+When the connection succeeds, OOMOL Console shows the Monday connection as
+**Connected**. The connection detail panel also shows the connected account,
+account ID, and granted scopes.
+
+## Use the Monday connection from an agent
+
+After OAuth succeeds, agents and `oo-cli` can use the monday.com connector
+without asking you for a Monday API key.
+
+In Codex, Claude Code, or another supported terminal agent, ask the agent to
+use the OOMOL Monday connector. For example:
+
+```text
+Use my monday.com connection to create a new private board named "oo-test",
+then create an item named "test-task" on that board.
+```
+
+The agent can inspect the available Monday connector actions, run the needed
+actions, and report the result. In the video, the agent creates a private
+monday.com board named `oo-test`, then creates an item named `test-task`.
+
+## Verify the result in monday.com
+
+Open monday.com and switch to the workspace you authorized. Look for the board
+or item that the agent created.
+
+For the example above, monday.com should show:
+
+- a board named `oo-test`
+- an item named `test-task` inside that board
+
+## Reconnect or disconnect
+
+To refresh the OAuth connection, return to
+[OOMOL Console](https://console.oomol.com/app-connections?provider=monday),
+open the Monday connection panel, and click **Reconnect**.
+
+To remove OOMOL's access to your monday.com account, open the same panel and
+click **Disconnect**.

@@ -1,0 +1,83 @@
+---
+sidebar_position: 2
+sidebar_label: 连接 monday.com
+slug: /oo-cli/connect-monday
+pagination_prev: cloud-services/cli
+pagination_next: cloud-services/connect-feishu-app-bot
+---
+
+# 连接 monday.com 到 OOMOL
+
+这篇指南会带你用 OAuth 把 monday.com 账号连接到 OOMOL，然后让 Agent 或
+`oo-cli` 通过这个连接创建 monday.com 内容。
+
+## 准备工作
+
+- 你可以登录 [OOMOL Console](https://console.oomol.com/app-connections?provider=monday)。
+- 你可以登录需要连接的 monday.com 工作区。
+- 你的 monday.com 账号有权限为该工作区授权应用。
+
+## 视频教程
+
+<video
+  controls
+  preload="metadata"
+  style={{ width: "100%", maxWidth: "880px", display: "block", margin: "16px auto 40px" }}
+>
+  <source src="https://static.oomol.com/assets/monday.mp4" type="video/mp4" />
+  你的浏览器不支持 video 标签。
+</video>
+
+## 在 OOMOL Console 中连接 monday.com
+
+打开 [OOMOL Console](https://console.oomol.com/app-connections?provider=monday)，
+进入 **App Connections**，搜索 **Monday**。
+
+在 Monday 连接卡片中点击 **Set Up**。OOMOL 会打开连接面板，并显示该服务支持
+的连接方式。选择 **OAuth**，然后点击 **Connect**。
+
+## 在 monday.com 中授权 OOMOL
+
+OOMOL 会打开 monday.com 授权窗口。如果浏览器要求登录，请登录要连接的
+monday.com 工作区。
+
+检查授权页上显示的权限，然后点击 **Authorize**。授权完成后，monday.com 会跳
+回 OOMOL。
+
+连接成功后，OOMOL Console 会把 Monday 连接显示为 **Connected**。连接详情面
+板中也会显示已连接账号、账号 ID 和已授权的 scopes。
+
+## 让 Agent 使用 Monday 连接
+
+OAuth 授权完成后，Agent 和 `oo-cli` 可以直接使用 monday.com connector，不需要
+你再提供 Monday API key。
+
+在 Codex、Claude Code 或其他支持的终端 Agent 中，可以让 Agent 使用 OOMOL
+Monday connector。比如：
+
+```text
+Use my monday.com connection to create a new private board named "oo-test",
+then create an item named "test-task" on that board.
+```
+
+Agent 可以查看可用的 Monday connector actions，运行需要的 actions，并返回执行
+结果。视频中，Agent 创建了一个名为 `oo-test` 的私有 monday.com board，然后在
+该 board 中创建了一个名为 `test-task` 的 item。
+
+## 在 monday.com 中验证结果
+
+打开 monday.com，切换到你刚才授权的工作区，查看 Agent 创建的 board 或 item。
+
+如果你使用上面的示例，monday.com 中应该能看到：
+
+- 一个名为 `oo-test` 的 board
+- 该 board 中有一个名为 `test-task` 的 item
+
+## 重新连接或断开连接
+
+如果需要刷新 OAuth 连接，回到
+[OOMOL Console](https://console.oomol.com/app-connections?provider=monday)，打开
+Monday 连接面板，然后点击 **Reconnect**。
+
+如果需要移除 OOMOL 对 monday.com 账号的访问权限，打开同一个面板，然后点击
+**Disconnect**。

@@ -23,6 +23,7 @@ const sidebars = {
       collapsed: true,
       items: [
         "cloud-services/cli",
+        "cloud-services/connect-monday",
         "cloud-services/connect-feishu-app-bot",
         "cloud-services/cli-command-reference",
       ],
